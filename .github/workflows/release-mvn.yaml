@@ -4,34 +4,27 @@ on:
   push:
     branches:
       - main
-
 jobs:
-  build_and_publish:
+  publish-central:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Set up JDK 1.8
+      - name: Checkout Git Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Apache Maven Central
         uses: actions/setup-java@v3
         with:
-          java-version: '8'
-          distribution: 'temurin'
-          cache: 'maven'
+          java-version: '8'      # 一般只需要修改这里，8 17 21 等等
+          server-id: absorprofess
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          gpg-private-key: ${{ secrets.GPG_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Configure Maven Settings
-        run: |
-          mkdir -p ~/.m2
-          echo "<settings><servers><server><id>absorprofess</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_PASSWORD }}</password></server></servers></settings>" > ~/.m2/settings.xml
-
-      - name: Install GPG Key
-        run: |
-          echo "${{ secrets.GPG_KEY }}" | gpg --batch --import
+      - name: Publish to Apache Maven Central
+        run: mvn deploy
         env:
-          GPG_KEY: ${{ secrets.GPG_KEY }}
-
-      - name: Publish to Sonatype
-        run: mvn clean deploy -P release -DskipTests
-        env:
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          SERVER_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          SERVER_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

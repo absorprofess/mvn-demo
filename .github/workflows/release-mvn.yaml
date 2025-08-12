@@ -15,7 +15,7 @@ jobs:
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v4
         with:
-          distribution: 'absorprofess'
+          distribution: 'zulu'
           java-version: '8'      # 一般只需要修改这里，8 17 21 等等
           server-id: absorprofess
           server-username: ${{ secrets.OSSRH_USERNAME }}

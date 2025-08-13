@@ -10,9 +10,8 @@
     </parent>
     <groupId>io.github.absorprofess</groupId>
     <artifactId>mvn-demo</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <name>mvn-demo</name>
-    <description>mvn-demo</description>
     <url>https://github.com/absorprofess/mvn-demo</url>
 
     <licenses>
@@ -22,17 +21,7 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>absorprofess</id>
-            <name>absorprofess</name>
-            <email>absorprofess@outlook.com</email>
-            <roles>
-                <role>Project Manager</role>
-                <role>Architect</role>
-            </roles>
-        </developer>
-    </developers>
+
 
     <scm>
         <connection>https://github.com/absorprofess/mvn-demo.git</connection>

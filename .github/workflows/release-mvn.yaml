@@ -1,9 +1,7 @@
-name: Maven Publish
-
+name: Maven Central Repo Deployment
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [ released ]
 jobs:
   publish-central:
     runs-on: ubuntu-latest
